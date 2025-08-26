@@ -1,0 +1,37 @@
+{
+    "name": "stuartcusackie/gradient-field",
+    "autoload": {
+        "psr-4": {
+            "Stuartcusackie\\GradientField\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Stuartcusackie\\GradientField\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "statamic/cms": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Gradient Fieldtype",
+            "description": "Gradient Fieldtype addon"
+        },
+        "laravel": {
+            "providers": [
+                "Stuartcusackie\\GradientField\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
