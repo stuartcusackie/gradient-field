@@ -30,8 +30,20 @@
                             <vue-gpickr v-model="gradient" @input="gradientSelected" />
                         </div>
 
-                        <div class="p-4">
-                            <text-input :value="value" @input="customGradientEntered" />
+                        <div class="grid grid-cols-2 px-4 pt-2 pb-4">
+                            <div class="relative">
+                                <text-input :value="value" @input="customGradientEntered" />
+                                
+                                <button 
+                                    class="bg-black hover:bg-gray-900 cursor-pointer p-2 w-10 h-full absolute top-0 right-0 flex justify-center items-center"
+                                    type="button"
+                                    v-clipboard:copy="value"
+                                    v-clipboard:success="onCopy"
+                                    v-clipboard:error="onError"
+                                    >
+                                    <svg-icon name="regular/paperclip" class="w-4" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -42,6 +54,11 @@
 
 <script>
 import { VueGpickr, LinearGradient } from 'vue-gpickr';
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
+
+let globalOpacity = 100;
 
 let gradient = new LinearGradient({
     angle: 0,
@@ -61,7 +78,8 @@ export default {
 
     data() {
         return {
-            gradient
+            gradient,
+            globalOpacity
         };
     },
 
@@ -91,12 +109,15 @@ export default {
                     angle: angle.replace('deg',''),
                     stops: stopsArray
                 });
+
+                this.updateDebounced(value)
             }
         },
 
         gradientSelected() {
             const stops = this.orderedStops.map(stop => `${stop[0].toString()} ${Math.round(stop[1] * 100)}%`).join(', ');
             this.value = `linear-gradient(${this.gradient.angle}deg, ${stops})`;
+            this.updateDebounced(this.value)
         }
     },
 };

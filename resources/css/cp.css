@@ -20,3 +20,27 @@
     color: white;
     box-shadow: inset 0 0 0 1px #191919;
 }
+
+.bg-black {
+    background-color: #000000;
+}
+
+.w-12 {
+    width: 2.5rem;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.-translate-y-1\/2 {
+    transform: translateY(-50%);
+}
