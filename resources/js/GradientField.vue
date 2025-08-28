@@ -30,19 +30,48 @@
                             <vue-gpickr v-model="gradient" @input="gradientSelected" />
                         </div>
 
-                        <div class="grid grid-cols-2 px-4 pt-2 pb-4">
-                            <div class="relative">
-                                <text-input :value="value" @input="customGradientEntered" />
-                                
-                                <button 
-                                    class="bg-black hover:bg-gray-900 cursor-pointer p-2 w-10 h-full absolute top-0 right-0 flex justify-center items-center"
-                                    type="button"
-                                    v-clipboard:copy="value"
-                                    v-clipboard:success="onCopy"
-                                    v-clipboard:error="onError"
-                                    >
-                                    <svg-icon name="regular/paperclip" class="w-4" />
-                                </button>
+                        <div class="px-4 pb-4">
+                            <div class="input-group">
+                                <text-input class="w-full" :value="value" @input="customGradientEntered" />
+
+                                <div
+                                    class="input-group-append px-px"
+                                    v-tooltip="__('Pick Gradient')"
+                                >
+                                    <button 
+                                        class="copy-btn"
+                                        type="button"
+                                        v-clipboard:copy="value"
+                                        v-clipboard:success="onCopy"
+                                        >
+                                        <svg v-if="copied" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75"></path>
+                                        </svg>
+
+                                        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.5 15.25V15.25C5.5335 15.25 4.75 14.4665 4.75 13.5V6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H13.5C14.4665 4.75 15.25 5.5335 15.25 6.5V6.5"></path>
+                                            <rect width="10.5" height="10.5" x="8.75" y="8.75" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" rx="2"></rect>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="config.presets.length" class="px-4 pt-2 pb-4 flex space-x-2 space-y">
+                            <div 
+                                v-for="(preset, index) 
+                                in config.presets" 
+                                :index="index" 
+                                v-tooltip="preset"
+                                @click="selectPreset(preset)"
+                                class="preset"
+                                :class="{ 'border dark:border-dark-900': !value, 'cursor-not-allowed': isReadOnly }"
+                                :style="{ 'background-image': 'url(\'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVQ4T2N89uzZfwY8QFJSEp80A+OoAcMiDP7//483HTx//hx/Ohg1gIFx6IcBALl+VXknOCvFAAAAAElFTkSuQmCC\')' }"
+                                >
+                                <div
+                                    class="w-8 h-8"
+                                    :style="{ 'background': preset }"
+                                />
                             </div>
                         </div>
                     </div>
@@ -59,6 +88,8 @@ import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
 
 let globalOpacity = 100;
+
+let copied = false
 
 let gradient = new LinearGradient({
     angle: 0,
@@ -79,7 +110,8 @@ export default {
     data() {
         return {
             gradient,
-            globalOpacity
+            globalOpacity,
+            copied
         };
     },
 
@@ -90,7 +122,7 @@ export default {
     },
 
     methods: {
-        customGradientEntered(value) {            
+        customGradientEntered(value) {
             const regex = /\(([^)]*)\)/;
             const match = regex.exec(value);
 
@@ -118,7 +150,17 @@ export default {
             const stops = this.orderedStops.map(stop => `${stop[0].toString()} ${Math.round(stop[1] * 100)}%`).join(', ');
             this.value = `linear-gradient(${this.gradient.angle}deg, ${stops})`;
             this.updateDebounced(this.value)
-        }
+        },
+
+        selectPreset(preset) {
+            this.value = preset
+            this.updateDebounced(this.value)
+        },
+
+        onCopy: function (e) {
+            this.copied = true;
+            setTimeout(() => this.copied = false, 2000)
+        },
     },
 };
 </script>
