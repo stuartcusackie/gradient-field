@@ -123,6 +123,15 @@ export default {
 
     methods: {
         customGradientEntered(value) {
+            this.setGradient(value);
+        },
+
+        /**
+         * TODO: Need to convert rgb / rgba values to hex
+         * in presets. Or else validate presets
+         * to only allow hex6/8
+         */
+        setGradient(value) {
             const regex = /\(([^)]*)\)/;
             const match = regex.exec(value);
 
@@ -154,7 +163,7 @@ export default {
 
         selectPreset(preset) {
             this.value = preset
-            this.updateDebounced(this.value)
+            this.setGradient(preset)
         },
 
         onCopy: function (e) {
