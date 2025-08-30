@@ -1,3 +1,3 @@
-import GradientField from './GradientField.vue';
+import GradientField from './Gradient.vue';
 
-Statamic.$components.register('gradient_field-fieldtype', GradientField);
+Statamic.$components.register('gradient-fieldtype', GradientField);

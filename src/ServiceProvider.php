@@ -4,7 +4,7 @@ namespace Stuartcusackie\GradientField;
 
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
-use Stuartcusackie\GradientField\FieldTypes\GradientField;
+use Stuartcusackie\GradientField\FieldTypes\Gradient;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -19,6 +19,6 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
-        GradientField::register();
+        Gradient::register();
     }
 }

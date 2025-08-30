@@ -1,12 +1,16 @@
 {
   "resources/css/cp.css": {
-    "file": "assets/cp-0d569270.css",
+    "file": "assets/cp-558baf54.css",
     "isEntry": true,
     "src": "resources/css/cp.css"
   },
   "resources/js/cp.js": {
-    "file": "assets/cp-67d12f62.js",
+    "file": "assets/cp-5213151e.js",
     "isEntry": true,
     "src": "resources/js/cp.js"
+  },
+  "resources/svg/gradient.svg": {
+    "file": "assets/gradient-67335f08.svg",
+    "src": "resources/svg/gradient.svg"
   }
 }
