@@ -1,6 +1,6 @@
 <?php
 
-namespace Stuartcusackie\GradientField\Fieldtypes;
+namespace Stuartcusackie\StatamicGradientField\Fieldtypes;
 
 use Statamic\Fields\Fieldtype;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Stuartcusackie\GradientField\Tests;
+namespace Stuartcusackie\StatamicGradientField\Tests;
 
 class ExampleTest extends TestCase
 {

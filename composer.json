@@ -2,12 +2,12 @@
     "name": "stuartcusackie/statamic-gradient-field",
     "autoload": {
         "psr-4": {
-            "Stuartcusackie\\GradientField\\": "src"
+            "Stuartcusackie\\StatamicGradientField\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Stuartcusackie\\GradientField\\Tests\\": "tests"
+            "Stuartcusackie\\StatamicGradientField\\Tests\\": "tests"
         }
     },
     "require": {
@@ -28,7 +28,7 @@
         },
         "laravel": {
             "providers": [
-                "Stuartcusackie\\GradientField\\ServiceProvider"
+                "Stuartcusackie\\StatamicGradientField\\ServiceProvider"
             ]
         }
     },

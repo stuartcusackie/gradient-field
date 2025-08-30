@@ -1,10 +1,10 @@
 <?php
 
-namespace Stuartcusackie\GradientField;
+namespace Stuartcusackie\StatamicGradientField;
 
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Statamic;
-use Stuartcusackie\GradientField\FieldTypes\Gradient;
+use Stuartcusackie\StatamicGradientField\FieldTypes\Gradient;
 
 class ServiceProvider extends AddonServiceProvider
 {
