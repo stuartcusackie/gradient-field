@@ -30,7 +30,21 @@ class GradientField extends Fieldtype
                     'enhanced' => __('Enhanced'),
                 ],
                 'width' => 50
-            ]
+            ],
+            'allow_any_gradient' => [
+                'display' => 'Allow Any Gradient',
+                'instructions' => 'Allow entering any gradient via picker or field input.',
+                'type' => 'toggle',
+                'default' => true,
+                'width' => 50
+            ],
+            'default_gradient' => [
+                'display' => 'Default Gradient',
+                'instructions' => 'Enter a default gradient.',
+                'type' => 'text',
+                'default' => '',
+                'width' => 50
+            ],
         ];
     }
 

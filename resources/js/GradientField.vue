@@ -26,13 +26,20 @@
 
                 <template #default="{ close: closePopover }">
                     <div class="gradient-field-popover">
-                        <div class="p-2">
+                        <div class="p-2" v-if="config.allow_any_gradient">
                             <vue-gpickr v-model="gradient" @input="gradientSelected" />
                         </div>
 
-                        <div class="px-4 pb-4">
+                        <div class="px-4 pb-4" :class="{ 'pt-4': !config.allow_any_gradient }">
                             <div class="input-group">
-                                <text-input class="w-full" :value="value" @input="customGradientEntered" />
+                                <input
+                                    class="input-text"
+                                    type="text"
+                                    :readonly="isReadOnly || !config.allow_any_gradient"
+                                    :value="value"
+                                    @input="customGradientEntered"
+                                    @blur="sanitizeCustomGradient"
+                                />
 
                                 <div
                                     class="input-group-append px-px"
@@ -115,6 +122,19 @@ export default {
         };
     },
 
+    mounted() {
+        if(!this.value) {
+            let defaultGradient = this.replaceRgbWithHex(this.config.default_gradient)
+
+            if(this.isValidLinearGradient(defaultGradient)) {
+                this.setGradient(defaultGradient)
+            }
+            else {
+                this.setGradient('linear-gradient(90deg, #00ff00 0%, #ff0000 100%)')
+            }
+        }
+    },
+
     computed: {
         orderedStops() {
             return this.gradient.stops.slice().sort((a, b) => a[1] - b[1]);
@@ -125,8 +145,17 @@ export default {
             presets = presets.map(preset => this.replaceRgbWithHex(preset));
             presets = presets.filter(preset => this.isValidLinearGradient(preset));
             return presets;
+        },
+
+        replicatorPreview() {
+            if (! this.showFieldPreviews || ! this.config.replicator_preview) return;
+
+            return this.value
+                ? replicatorPreviewHtml(`<span class="little-dot" style="background:${this.value}"></span>`)
+                : null;
         }
     },
+    
 
     methods: {
         isValidLinearGradient(str) {
@@ -138,6 +167,12 @@ export default {
             return str.replace(/rgba?\(.*?\)/g, (match) => {
                 return `#${rgbHex(match)}`;
             });
+        },
+
+        sanitizeCustomGradient () {
+            if(this.isValidLinearGradient(this.value)) {
+                this.update(this.value);
+            }
         },
 
         customGradientEntered(value) {
@@ -175,8 +210,10 @@ export default {
         },
 
         selectPreset(preset) {
-            this.value = preset
-            this.setGradient(preset)
+            if(!this.isReadOnly) {
+                this.value = preset
+                this.setGradient(preset)
+            }
         },
 
         onCopy: function (e) {

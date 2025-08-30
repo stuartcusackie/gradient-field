@@ -1,14 +1,13 @@
-# Gradient Field
+# Statamic Gradient Field
 
-> Gradient Field is a Statamic addon that does something pretty neat.
+> Gradient Field is a Statamic addon that enables users to create linear gradients.
 
 ## Features
 
-This addon does:
-
-- This
-- And this
-- And even this
+- Multiple gradient colour stop selection.
+- Colour transparency selection.
+- Gradient angle selection.
+- Gradient presets.
 
 ## How to Install
 
@@ -20,4 +19,4 @@ composer require stuartcusackie/gradient-field
 
 ## How to Use
 
-Here's where you can explain how to use this wonderful addon.
+Simply install the field via composer and add it to your blueprints. See the configuration options for presets and disabling custom gradients.
