@@ -14,7 +14,7 @@
 You can install this addon via Composer:
 
 ``` bash
-composer require stuartcusackie/gradient-field
+composer require stuartcusackie/statamic-gradient-field
 ```
 
 ## How to Use
