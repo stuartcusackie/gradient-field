@@ -22,7 +22,7 @@ composer require stuartcusackie/statamic-gradient-field
 1. Install the field via composer.
 2. Add the field to your blueprints.
 3. Update the field configuration options for presets and disabling custom gradients.
-4. Use the generated CSS in your templates.
+4. Use the generated CSS in your templates. Example below.
 
 ```
 <div class="w-8 h-8" style="background: {{ gradientField }}"></div>
