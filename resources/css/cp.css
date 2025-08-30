@@ -1,3 +1,7 @@
+.gradient-field-popover {
+    max-width: 446px;
+}
+
 .gradient-field-popover .vue-gpickr,
 .gradient-field-popover .vue-gpickr .vc-sketch {
     background: transparent;
@@ -39,6 +43,17 @@
 
 :is(.dark .cssText) {
     border-color: #000;
+}
+
+.presets {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0.38rem;
+    row-gap: 0.38rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
 }
 
 .preset {

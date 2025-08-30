@@ -36,7 +36,7 @@
 
                                 <div
                                     class="input-group-append px-px"
-                                    v-tooltip="__('Pick Gradient')"
+                                    v-tooltip="__('Copy to clipboard')"
                                 >
                                     <button 
                                         class="copy-btn"
@@ -57,10 +57,9 @@
                             </div>
                         </div>
 
-                        <div v-if="config.presets.length" class="px-4 pt-2 pb-4 flex space-x-2 space-y">
+                        <div v-if="formattedAndValidatedPresets.length" class="presets">
                             <div 
-                                v-for="(preset, index) 
-                                in config.presets" 
+                                v-for="(preset, index) in formattedAndValidatedPresets" 
                                 :index="index" 
                                 v-tooltip="preset"
                                 @click="selectPreset(preset)"
@@ -84,6 +83,7 @@
 <script>
 import { VueGpickr, LinearGradient } from 'vue-gpickr';
 import VueClipboard from 'vue-clipboard2'
+import rgbHex from 'rgb-hex';
 
 Vue.use(VueClipboard)
 
@@ -118,19 +118,32 @@ export default {
     computed: {
         orderedStops() {
             return this.gradient.stops.slice().sort((a, b) => a[1] - b[1]);
+        },
+
+        formattedAndValidatedPresets() {
+            let presets = this.config.presets;
+            presets = presets.map(preset => this.replaceRgbWithHex(preset));
+            presets = presets.filter(preset => this.isValidLinearGradient(preset));
+            return presets;
         }
     },
 
     methods: {
+        isValidLinearGradient(str) {
+            const gradientRegex = /^linear-gradient\(\s*(?:-?\d+deg\s*,\s*)?(?:#[0-9a-fA-F]{3,8}\s+\d+%)(?:,\s*#[0-9a-fA-F]{3,8}\s+\d+%)*\s*\)$/;
+            return gradientRegex.test(str);
+        },
+        
+        replaceRgbWithHex(str) {
+            return str.replace(/rgba?\(.*?\)/g, (match) => {
+                return `#${rgbHex(match)}`;
+            });
+        },
+
         customGradientEntered(value) {
             this.setGradient(value);
         },
 
-        /**
-         * TODO: Need to convert rgb / rgba values to hex
-         * in presets. Or else validate presets
-         * to only allow hex6/8
-         */
         setGradient(value) {
             const regex = /\(([^)]*)\)/;
             const match = regex.exec(value);

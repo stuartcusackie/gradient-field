@@ -22,7 +22,7 @@ class GradientField extends Fieldtype
         return [
             'presets' => [
                 'display' => 'Presets',
-                'instructions' => 'Add gradient presets, e.g. `linear-gradient(90deg, rgba(255,0,0) 0%, rgba(0,255,0) 100%)`',
+                'instructions' => 'Add RGB or Hex linear gradients, e.g. `linear-gradient(90deg, rgba(255,0,0) 0%, rgba(0,255,0) 100%)`.',
                 'type' => 'list',
                 'default' => 'regular',
                 'options' => [
