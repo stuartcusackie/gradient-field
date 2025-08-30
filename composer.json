@@ -1,5 +1,5 @@
 {
-    "name": "stuartcusackie/gradient-field",
+    "name": "stuartcusackie/statamic-gradient-field",
     "autoload": {
         "psr-4": {
             "Stuartcusackie\\GradientField\\": "src"
